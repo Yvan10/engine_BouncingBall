@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class GameWindow extends JFrame {
+public class GameWindow {
 
     private static final int SLEEP = 25;
 
@@ -16,28 +16,30 @@ public class GameWindow extends JFrame {
     private BufferedImage bufferedImage; // image sur laquelle on va dessiner nos entite dessus
     private Graphics2D buffer;
     private long before;
+    private  JFrame frame;
     private int score = 0;
     private Ball ball;
     public GameWindow() {
-        setSize(800,600);
-        setLocationRelativeTo(null); // Create frame on screen
-        setResizable(false);
-        setTitle("Bouncing Balls");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setState(JFrame.NORMAL);
+        frame = new JFrame();
+        frame.setSize(800,600);
+        frame.setLocationRelativeTo(null); // Create frame on screen
+        frame.setResizable(false);
+        frame.setTitle("Bouncing Balls");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setState(JFrame.NORMAL);
         //setUndecorated(true); Supprikmer le bar d'application
 
         panel = new JPanel();
         panel.setBackground(Color.BLUE);
         panel.setFocusable(true);
         panel.setDoubleBuffered(true);
-        add(panel);//Ajouter le panel dans le JFrame
+        frame.add(panel);//Ajouter le panel dans le JFrame
 
         ball = new Ball(20);
     }
 
     public void start() {
-        setVisible(true);
+        frame.setVisible(true);
         before = System.currentTimeMillis();
         while (playing){
             bufferedImage = new BufferedImage(800,600,
@@ -78,8 +80,7 @@ public class GameWindow extends JFrame {
     }
 
     public void drawOnBuffer() {  // il affiche les affaires
-        buffer.setPaint(Color.RED);
-        buffer.fillOval(ball.getX(),ball.getY(),ball.getRadius() * 2,ball.getRadius() * 2);
+       ball.draw(buffer);
 
         buffer.setPaint(Color.WHITE);
         buffer.drawString("Score : " + score,10,20);
