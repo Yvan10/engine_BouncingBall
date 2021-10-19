@@ -1,5 +1,7 @@
 package engine;
 
+import com.company.Ball;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -8,19 +10,14 @@ import java.util.Random;
 public class GameWindow extends JFrame {
 
     private static final int SLEEP = 25;
-    private Random rnd = new Random();
+
     private boolean playing = true;
     private JPanel panel;
-    private int radius = 25;
-    private int x = 200;
-    private int y = 200;
-    private int dx = 1;
-    private int dy = 1;
     private BufferedImage bufferedImage; // image sur laquelle on va dessiner nos entite dessus
     private Graphics2D buffer;
     private long before;
     private int score = 0;
-
+    private Ball ball;
     public GameWindow() {
         setSize(800,600);
         setLocationRelativeTo(null); // Create frame on screen
@@ -35,6 +32,8 @@ public class GameWindow extends JFrame {
         panel.setFocusable(true);
         panel.setDoubleBuffered(true);
         add(panel);//Ajouter le panel dans le JFrame
+
+        ball = new Ball(20);
     }
 
     public void start() {
@@ -71,12 +70,16 @@ public class GameWindow extends JFrame {
 
 
 
-    public void update() {
+    public void update() { // mettre a jour les variable pour que qund il affiche sa a l'air de bouger
+      ball.update();
+      if (ball.HasTouchBound()){
+          score += 10;
+      }
     }
 
-    public void drawOnBuffer() {
+    public void drawOnBuffer() {  // il affiche les affaires
         buffer.setPaint(Color.RED);
-        buffer.fillOval(x,y,radius * 2,radius * 2);
+        buffer.fillOval(ball.getX(),ball.getY(),ball.getRadius() * 2,ball.getRadius() * 2);
 
         buffer.setPaint(Color.WHITE);
         buffer.drawString("Score : " + score,10,20);
@@ -88,6 +91,8 @@ public class GameWindow extends JFrame {
         Toolkit.getDefaultToolkit().sync();
         graphics.dispose();
     }
+
+
 
 
 }
