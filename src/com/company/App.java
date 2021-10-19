@@ -1,10 +1,10 @@
 package com.company;
 
-import engine.GameWindow;
+import engine.Game;
 
 public class App {
 
     public static void main(String[] args) {
-        (new GameWindow()).start();
+        (new Game()).start();
     }
 }
