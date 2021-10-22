@@ -5,6 +5,7 @@ import engine.Game;
 public class App {
 
     public static void main(String[] args) {
-        (new Game()).start();
+       // (new Game()).start();
+        (new BouncingBallGame()).start();
     }
 }
