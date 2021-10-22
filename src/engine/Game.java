@@ -33,6 +33,11 @@ public abstract class Game {
         run();
         conclude();
     }
+
+    public final void stop(){
+        playing = false;
+    }
+
     public void run() {
        renderingEngine.start();
         updateSyncTime();
