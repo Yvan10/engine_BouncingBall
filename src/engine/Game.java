@@ -1,21 +1,11 @@
 package engine;
 
-import com.company.Ball;
-import com.company.Buffer;
-import com.company.RenderingEngine;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.Random;
+import java.awt.event.KeyListener;
 
 public abstract class Game {
-
-    private static final int SLEEP = 25;
-
+    private GameTime gameTime;
     private boolean playing = true;
-
-    private long syncTime;
     private RenderingEngine renderingEngine;
     public  abstract void initialize();
     public  abstract void update();
@@ -38,9 +28,12 @@ public abstract class Game {
         playing = false;
     }
 
+    public void addKeyListener(KeyListener listener){
+        renderingEngine.addKeyListener(listener);
+    }
     public void run() {
        renderingEngine.start();
-        updateSyncTime();
+        GameTime.getInstance();
         while (playing){
 
             update();
@@ -48,7 +41,7 @@ public abstract class Game {
             //drawOnBuffer();
 //            drawBufferOnScreen();
             renderingEngine.renderBufferOnScreen();
-            sleep();
+            GameTime.getInstance().synchronize();
         }
         renderingEngine.stop();
     }
@@ -62,33 +55,6 @@ public abstract class Game {
 //    public void drawOnBuffer(Graphics2D buffer) {  // il affiche les affaires
 //
 //    }
-
-
-
-
-    private void sleep(){
-        try {
-            Thread.sleep(getSleep());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        updateSyncTime();
-    }
-
-    private void updateSyncTime(){
-        syncTime = System.currentTimeMillis();
-    }
-
-    private long getSleep(){
-        long sleep = SLEEP - (System.currentTimeMillis()-syncTime);
-        if (sleep<0){
-            sleep = 4;
-        }
-        return sleep;
-    }
-
-
-
 
 
 

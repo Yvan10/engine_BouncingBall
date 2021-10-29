@@ -1,4 +1,6 @@
-package com.company;
+package com.company.bouncingBalls;
+
+import engine.Buffer;
 
 import java.awt.*;
 import java.util.Random;

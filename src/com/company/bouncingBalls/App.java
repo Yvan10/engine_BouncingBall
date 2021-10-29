@@ -1,7 +1,4 @@
-package com.company;
-
-import engine.Game;
-
+package com.company.bouncingBalls;
 public class App {
 
     public static void main(String[] args) {

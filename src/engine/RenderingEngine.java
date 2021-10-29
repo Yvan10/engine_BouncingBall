@@ -1,7 +1,8 @@
-package com.company;
+package engine;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 public class RenderingEngine {
@@ -25,9 +26,12 @@ public class RenderingEngine {
         frame.setVisible(true);
     }
     public void stop(){
-
         frame.setVisible(false); // ferme la fenetre ouvert plus haut
         frame.dispose();
+    }
+
+    public void addKeyListener(KeyListener listener){
+        panel.addKeyListener(listener);
     }
 
 
